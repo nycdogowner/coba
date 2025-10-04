@@ -83,16 +83,63 @@ function handleChange(field, value) {
 
 function renderResults() {
   document.getElementById("results").innerHTML =
-    `<h2>Results</h2><p>${generateAnalysis(step, answers[step] || {})}</p>`;
+    `<h2>Results</h2><div>${generateAnalysis(step, answers[step] || {})}</div>`;
 }
 
-// Dummy analysis generator (replace with real logic)
+// === Generate Full Analysis (Deep Dive + Roadmap + Narrative) ===
 function generateAnalysis(step, fields) {
   if (!fields) return "Please complete the fields.";
-  return `Analysis for ${categories.find(c => c.id === step).title} based on inputs.`;
+  
+  let output = `<h2>Professional Deep-Dive Analysis</h2>`;
+  output += `<p><b>Category:</b> ${categories.find(c => c.id === step).title}</p>`;
+
+  // Contoh analisa khusus (nanti tiap kategori bisa punya analisa berbeda)
+  output += `
+  <h2>A. Affiliate Product Analysis</h2>
+  <p><b>A.1. Core Value Proposition</b><br>
+  This product solves key pain points by offering efficiency, affordability, and accessibility.</p>
+
+  <p><b>A.2. Target Audience Insights</b><br>
+  Freelancers, small businesses, marketers, students — all benefit in unique ways.</p>
+
+  <p><b>A.3. Pain Points Solved</b><br>
+  Lack of skills, limited budget, time constraints.</p>
+
+  <p><b>A.4. Unique Differentiators</b><br>
+  Large resource library, ease of use, collaborative features, affordable pricing.</p>
+
+  <p><b>A.5. Affiliate Positioning Strategy</b><br>
+  Emphasize saving time and money, highlight transformation stories, offer bonuses.</p>
+
+  <p><b>A.6. Success Roadmap</b><br>
+  Content creation → Audience targeting → Conversion funnels with tutorials and guides.</p>
+
+  <p><b>A.7. Revenue Potential</b><br>
+  With optimized promotion, affiliates can scale earnings from a few hundred to thousands monthly.</p>
+
+  <h2>🚀 Roadmap to Success</h2>
+  <ul>
+    <li><b>Week 1:</b> Research target audience, analyze competitors, define USP.</li>
+    <li><b>Week 2:</b> Build landing page, create first bonus resources, set up social channels.</li>
+    <li><b>Week 3:</b> Publish tutorials, test campaigns, collect engagement data.</li>
+    <li><b>Week 4:</b> Review validation results, refine content, optimize funnels.</li>
+    <li><b>Month 2-3:</b> Scale consistent weekly content, build email list, achieve $500/month milestone.</li>
+    <li><b>Month 4-6:</b> Expand authority with advanced resources, optimize conversions, aim for $2,000–$5,000/month.</li>
+  </ul>
+
+  <h2>Narrative Analysis</h2>
+  <p>Paragraph 1: Understanding affiliate digital products requires clarity on your chosen niche and the audience you want to serve. By aligning your skills and experiences with market demand, you gain a natural edge in credibility and trust.</p>
+  <p>Paragraph 2: Affiliates often underestimate the value of identifying pain points. Yet, the deeper you know your audience's struggles, the easier it is to position your offer as the most practical solution they need right now.</p>
+  <p>Paragraph 3: Beyond theory, execution matters. Affiliates who document their journey — tutorials, blogs, case studies — not only market the product but also showcase authenticity, which increases conversions.</p>
+  <p>Paragraph 4: Pricing and positioning are two sides of the same coin. By understanding the real transformation provided, you can set pricing strategies and highlight the cost-benefit advantage over traditional solutions.</p>
+  <p>Paragraph 5: Building irresistible offers is not about the product alone but about the package — bonuses, emotional benefits, and storytelling that reduce buyer hesitation and amplify perceived value.</p>
+  <p>Paragraph 6: Ultimately, success comes from consistent action and refinement. Start lean, validate fast, scale wisely. Affiliate digital product success is a marathon of learning, testing, and optimizing — but with the right framework, your growth is inevitable.</p>
+  `;
+
+  return output;
 }
 
-// PDF export
+// === PDF Export ===
 function exportPDF(content, filename) {
   const doc = new jsPDF("p", "pt", "a4");
   doc.setFont("calibri", "normal");
@@ -101,7 +148,7 @@ function exportPDF(content, filename) {
   doc.save(filename);
 }
 
-// Navigation
+// === Navigation ===
 document.getElementById("nextBtn").onclick = () => {
   if (step < categories.length) step++;
   renderForm();
@@ -142,6 +189,6 @@ document.getElementById("fullBlueprint").onclick = () => {
   exportPDF(fullContent, "Affiliate_Digital_Product_Success_Blueprint.pdf");
 };
 
-// Initialize
+// Init
 renderForm();
 renderResults();
